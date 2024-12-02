@@ -1,8 +1,19 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5001/api/pdf";
-
 export const generatePDFs = async (numEquipos) => {
-  const response = await axios.post(`${API_URL}/generate`, { numEquipos });
-  return response.data;
+  try {
+    const response = await axios.post("http://localhost:5001/api/pdf/generate", {
+      numEquipos: Number(numEquipos),
+    });
+
+    if (response.status === 200 && response.data) {
+      return response.data;
+    } else {
+      console.error("Respuesta inesperada del servidor:", response);
+      throw new Error("Respuesta inesperada del servidor.");
+    }
+  } catch (error) {
+    console.error("Error al llamar al backend:", error);
+    throw error;
+  }
 };

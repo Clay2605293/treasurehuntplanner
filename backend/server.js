@@ -11,6 +11,7 @@ app.use(express.json());
 // Rutas
 const pdfRoutes = require("./routes/pdfRoutes");
 app.use("/api/pdf", pdfRoutes);
+app.use("/temp", express.static(path.join(__dirname, "../temp"))); // Ajusta esta ruta si es necesario
 
 // Servidor
 const PORT = 5001;
